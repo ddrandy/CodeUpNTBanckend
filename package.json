@@ -3,10 +3,20 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
+  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ddrandy/CodeUpNTBanckend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ddrandy/CodeUpNTBanckend/issues"
+  },
+  "homepage": "https://github.com/ddrandy/CodeUpNTBanckend#readme",
   "description": ""
 }
