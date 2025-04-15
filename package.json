@@ -18,5 +18,8 @@
     "url": "https://github.com/ddrandy/CodeUpNTBanckend/issues"
   },
   "homepage": "https://github.com/ddrandy/CodeUpNTBanckend#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
 }
