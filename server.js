@@ -1,8 +1,21 @@
 const express = require('express');
+const morgan = require('morgan');
+const rateLimit = require('express-rate-limit');
 const app = express();
 const port = 3000;
 
 const productRouters = require('./routes/products');
+
+// logging middleware 
+app.use(morgan(':method :url :status :response-time ms'));
+
+// rate limit
+const limiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 10,
+  message: "Too many requests, please try again later."
+});
+app.use('/', limiter);
 
 // express json middleware
 app.use(express.json());
