@@ -4,7 +4,8 @@ const rateLimit = require('express-rate-limit');
 const app = express();
 const port = 3000;
 
-const productRouters = require('./routes/products');
+const v1ProductRouters = require('./routes/v1/products');
+const v2ProductRouters = require('./routes/v2/products');
 
 // logging middleware 
 app.use(morgan(':method :url :status :response-time ms'));
@@ -21,7 +22,8 @@ app.use('/', limiter);
 app.use(express.json());
 
 // mount the routing module
-app.use('/products', productRouters);
+app.use('/api/v1', v1ProductRouters);
+app.use('/api/v2', v2ProductRouters);
 
 // root route
 app.get('/', (req, res) => {

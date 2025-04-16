@@ -4,7 +4,7 @@ const { body, validationResult } = require('express-validator');
 
 // dummy data
 let products = [
-    { id: 1, name: 'Hat', price: 12 },
+    { id: 1, name: 'Hat V2', price: 12 },
     { id: 2, name: 'Gloves', price: 18 },
     { id: 3, name: 'Glasses', price: 22 },
 ]
