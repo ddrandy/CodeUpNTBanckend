@@ -1,21 +1,32 @@
 const express = require('express');
-
 const app = express();
-app.get('/', (req, res) => { res.send('Hello world!') });
-app.get('/about', (req, res) => {
-  res.sendFile(__dirname + '/about.html')
+const port = 3000;
+
+const productRouters = require('./routes/products');
+
+// express json middleware
+app.use(express.json());
+
+// mount the routing module
+app.use('/products', productRouters);
+
+// root route
+app.get('/', (req, res) => {
+  res.send('Welcom to my page');
 });
 
+// 404 
 app.use((req, res, next) => {
-  res.status(404).json({ error: 'Route not found.' });
+  res.status(404).json({ error: 'Page not found' });
 });
 
-let products = [
-  { 'product_id': 1, 'name': 'Hat', 'price': 12 },
-  { 'product_id': 2, 'name': 'Gloves', 'price': 18 },
-  { 'product_id': 3, 'name': 'Glasses', 'price': 22 },
-];
-app.get('/products', (req, res) => {
-  res.json(products)
+// global error handler
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Internal Server Error' });
 });
-app.listen(3000, () => { console.log("Server running on http://localhost:3000") });
+
+// start the server
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
