@@ -9,7 +9,15 @@ let products = [
     { id: 3, name: 'Glasses V1', price: 22 },
 ]
 
-// GET /products
+/**
+ * @swagger
+ * /api/v1/products:
+ *   get:
+ *     summary: Get all products
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved products
+ */
 router.get('/', (req, res) => {
     res.json(products);
 });
