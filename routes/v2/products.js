@@ -1,16 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
+const { Product } = require('../../models');
 
-// dummy data
-let products = [
-    { id: 1, name: 'Hat V2', price: 12 },
-    { id: 2, name: 'Gloves', price: 18 },
-    { id: 3, name: 'Glasses', price: 22 },
-]
-
-// GET /products
-router.get('/', (req, res) => {
+/**
+ * @swagger
+ * /api/v1/products:
+ *   get:
+ *     summary: Get all products
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved products
+ */
+router.get('/', async (req, res) => {
+    const products = await Product.findAll();
     res.json(products);
 });
 
@@ -18,17 +21,17 @@ router.get('/', (req, res) => {
 router.post('/',
     body('name').notEmpty().withMessage('Name is required'),
     body('price').isNumeric().withMessage('Price must be a number'),
-    (req, res) => {
+    async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ error: errors.array() });
         }
-        const newProduct = {
-            id: products.length + 1,
+        const product = {
             name: req.body.name,
             price: req.body.price
         };
-        products.push(newProduct);
+        const newProduct = await Product.create(product);
+        const products = await Product.findAll();
         res.status(201).json(products);
     }
 );

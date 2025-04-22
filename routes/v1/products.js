@@ -4,20 +4,12 @@ const { body, validationResult } = require('express-validator');
 
 // dummy data
 let products = [
-    { id: 1, name: 'Hat V1', price: 12 },
-    { id: 2, name: 'Gloves V1', price: 18 },
-    { id: 3, name: 'Glasses V1', price: 22 },
+    { id: 1, name: 'Hat V2', price: 12 },
+    { id: 2, name: 'Gloves', price: 18 },
+    { id: 3, name: 'Glasses', price: 22 },
 ]
 
-/**
- * @swagger
- * /api/v1/products:
- *   get:
- *     summary: Get all products
- *     responses:
- *       200:
- *         description: Successfully retrieved products
- */
+// GET /products
 router.get('/', (req, res) => {
     res.json(products);
 });
