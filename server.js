@@ -8,10 +8,10 @@ const port = 3000;
 
 const v1ProductRouters = require('./routes/v1/products');
 const v2ProductRouters = require('./routes/v2/products');
-const sequelize = require('./models');
+const { sequelize, User, Product, Order } = require('./models');
 
 // sync database
-sequelize.sync({ force: false }).then(()=>{
+sequelize.sync({ force: false }).then(() => {
   console.log('Database synced');
 });
 
