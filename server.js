@@ -8,6 +8,8 @@ const port = 3000;
 
 const v1ProductRouters = require('./routes/v1/products');
 const v2ProductRouters = require('./routes/v2/products');
+const v2AuthRouters = require('./routes/v2/auth');
+
 const { sequelize, User, Product, Order } = require('./models');
 
 // sync database
@@ -49,6 +51,7 @@ app.use(express.json());
 // mount the routing module
 app.use('/api/v1/products', v1ProductRouters);
 app.use('/api/v2/products', v2ProductRouters);
+app.use('/api/v2/auth', v2AuthRouters);
 
 // root route
 app.get('/', (req, res) => {
