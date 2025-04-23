@@ -4,7 +4,8 @@ const rateLimit = require('express-rate-limit');
 const app = express();
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
-const port = 3000;
+const config = require('./util/config');
+const port = config.app.port;
 
 const v1ProductRouters = require('./routes/v1/products');
 const v2ProductRouters = require('./routes/v2/products');
@@ -17,21 +18,7 @@ sequelize.sync({ force: false }).then(() => {
   console.log('Database synced');
 });
 
-
-// swagger config
-const swaggerOptions = {
-  definition: {
-    openapi: '3.0.0',
-    info: {
-      title: "Shopping API",
-      version: "1.0.0",
-      description: "API for managing products and orders"
-    },
-    servers: [{ url: `http://localhost:${port}` }],
-  },
-  apis: ['./routes/**/*.js'],
-}
-const swaggerSpec = swaggerJSDoc(swaggerOptions);
+const swaggerSpec = swaggerJSDoc(config.swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // logging middleware 

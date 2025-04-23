@@ -2,11 +2,9 @@ const { Sequelize, DataTypes } = require('sequelize');
 const setupUser = require('./user');
 const setupProduct = require('./product');
 const setupOrder = require('./order');
+const config = require('../util/config');
 
-const sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: './database.sqlite'
-});
+const sequelize = new Sequelize(config.sequelize);
 
 // initialize models
 const User = setupUser(sequelize);

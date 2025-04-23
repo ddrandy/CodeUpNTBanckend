@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const { Product } = require('../../models');
+const authenticate = require('../../middleware/auth');
 
 /**
  * @swagger
- * /api/v1/products:
+ * /api/v2/products:
  *   get:
  *     summary: Get all products
  *     responses:
@@ -19,6 +20,7 @@ router.get('/', async (req, res) => {
 
 // POST /products
 router.post('/',
+    authenticate,
     body('name').notEmpty().withMessage('Name is required'),
     body('price').isNumeric().withMessage('Price must be a number'),
     async (req, res) => {
