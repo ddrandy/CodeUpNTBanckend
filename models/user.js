@@ -12,6 +12,9 @@ module.exports = (sequelize) => {
         password: { type: DataTypes.STRING, allowNull: false },
     }, {
         sequelize,
+        indexes: [
+            { fields: ['email'], unique: true },
+        ],
     });
     return User;
 };

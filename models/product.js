@@ -10,6 +10,12 @@ module.exports = (sequelize) => {
     Product.init({
         name: { type: DataTypes.STRING, allowNull: false },
         price: { type: DataTypes.FLOAT, allowNull: false },
-    }, { sequelize });
+    }, {
+        sequelize,
+        indexes: [
+            { fields: ['name'] },
+            { fields: ['price'] },
+        ]
+    });
     return Product;
 };
