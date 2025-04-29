@@ -14,8 +14,23 @@ const authenticate = require('../../middleware/auth');
  *         description: Successfully retrieved products
  */
 router.get('/', async (req, res) => {
-    const products = await Product.findAll();
-    res.json(products);
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = parseInt(req.query.pageSize) || 10;
+    const offset = (page - 1) * pageSize;
+    try {
+        const { count, rows } = await Product.findAndCountAll({
+            limit: pageSize,
+            offset: offset
+        });
+        res.json({
+            totalItems: count,
+            totalPages: Math.ceil(count / pageSize),
+            currentPage: page,
+            products: rows
+        })
+    } catch (error) {
+        res.status(500).json({ error: 'Server error' });
+    }
 });
 
 // POST /products
@@ -33,8 +48,7 @@ router.post('/',
             price: req.body.price
         };
         const newProduct = await Product.create(product);
-        const products = await Product.findAll();
-        res.status(201).json(products);
+        res.status(201).json(newProduct);
     }
 );
 
