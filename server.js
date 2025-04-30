@@ -10,6 +10,7 @@ const port = config.app.port;
 const v1ProductRouters = require('./routes/v1/products');
 const v2ProductRouters = require('./routes/v2/products');
 const v2AuthRouters = require('./routes/v2/auth');
+const v2OrderRouters = require('./routes/v2/orders');
 
 const { sequelize, User, Product, Order } = require('./models');
 
@@ -39,6 +40,7 @@ app.use(express.json());
 app.use('/api/v1/products', v1ProductRouters);
 app.use('/api/v2/products', v2ProductRouters);
 app.use('/api/v2/auth', v2AuthRouters);
+app.use('/api/v2/orders', v2OrderRouters);
 
 // root route
 app.get('/', (req, res) => {

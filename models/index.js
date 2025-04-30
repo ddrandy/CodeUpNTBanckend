@@ -15,7 +15,7 @@ const OrderItem = setupOrderItem(sequelize);
 
 // define relationships
 User.associate({ Order });
-Order.associate({ User });
+Order.associate({ User, OrderItem });
 OrderItem.associate({ Order, Product });
 
 module.exports = {
