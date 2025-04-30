@@ -53,6 +53,14 @@ app.use((req, res, next) => {
 // global error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
+
+  if (err.name === 'SequelizeValidationError') {
+    return res.status(400).json({
+      error: 'Validation Error',
+      details: err.errors.map(e => e.message)
+    });
+  }
+
   res.status(500).json({ error: 'Internal Server Error' });
 });
 
